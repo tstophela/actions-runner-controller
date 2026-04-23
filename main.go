@@ -7,11 +7,26 @@ You may obtain a copy of the License at
 
     http://www.apache.org/licenses/LICENSE-2.0
 
-nWITHpackage main
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+*/
 
-import"
-	"os8s.io/ap"
-	utruntime "k8s.io/apimachinery/pkg/utilgoscheme "k8s.io/_ "k8s.io/client-go/plugin/pkg/client/auth"
+package main
+
+import (
+	"flag"
+	"os"
+
+	// Import all Kubernetes client auth plugins (e.g. Azure, GCP, OIDC, etc.)
+	// to ensure that exec-entrypoint and run can make use of them.
+	_ "k8s.io/client-go/plugin/pkg/client/auth"
+
+	"k8s.io/apimachinery/pkg/runtime"
+	utilruntime "k8s.io/apimachinery/pkg/util/runtime"
+	clientgoscheme "k8s.io/client-go/kubernetes/scheme"
 	ctrl "sigs.k8s.io/controller-runtime"
 	"sigs.k8s.io/controller-runtime/pkg/healthz"
 	"sigs.k8s.io/controller-runtime/pkg/log/zap"
@@ -39,7 +54,8 @@ func main() {
 	flag.BoolVar(&enableLeaderElection, "leader-elect", false,
 		"Enable leader election for controller manager. "+
 			"Enabling this will ensure there is only one active controller manager.")
-	flag.StringVar(&logLevel, "log-level", "info", "Log level (debug, info, warn, error).")
+	// Default to debug level for easier local development and troubleshooting.
+	flag.StringVar(&logLevel, "log-level", "debug", "Log level (debug, info, warn, error).")
 
 	opts := zap.Options{
 		Development: logLevel == "debug",
