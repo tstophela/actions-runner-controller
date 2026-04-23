@@ -64,3 +64,6 @@ require (
 	sigs.k8s.io/structured-merge-diff/v4 v4.4.1 // indirect
 	sigs.k8s.io/yaml v1.4.0 // indirect
 )
+
+// Personal fork - tracking upstream actions/actions-runner-controller @ v0.28.4 k8s deps
+// TODO: evaluate upgrading to k8s.io/* v0.29.x once controller-runtime v0.17 is stable
